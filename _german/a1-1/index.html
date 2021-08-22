@@ -1,0 +1,943 @@
+<html lang="de">
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .bottomButtons {
+            position: fixed;
+            bottom: 20px;
+            z-index: 99;
+            right: 30px;
+        }
+
+        .bottomButtons button {
+            font-size: 12px;
+            border: none;
+            outline: none;
+            background-color: gray;
+            color: white;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 4px;
+        }
+
+        .bottomButton:hover {
+            background-color: #555;
+        }
+
+        #goToTopButton {
+            display: none;
+        }
+    </style>
+    <style>
+        #toc_container {
+            background: #f9f9f9 none repeat scroll 0 0;
+            border: 1px solid #aaa;
+            display: table;
+            font-size: 95%;
+            margin-bottom: 1em;
+            padding: 20px;
+            width: auto;
+        }
+
+        .toc_title {
+            font-weight: 700;
+            text-align: center;
+        }
+
+        #toc_container li,
+        #toc_container ul,
+        #toc_container ul li {
+            list-style: outside none none !important;
+        }
+
+        .german {
+            cursor: pointer;
+        }
+
+        textarea {
+            width: 425px;
+            height: 60px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bottomButtons">
+        <button onclick="toggleReadWholeSentence()" id="readWholeSentenceToggle" class="bottomButton">Read sentence</button>
+        <button onclick="increaseSpeed()" id="speedUp" class="bottomButton">Speed+</button>
+        <button onclick="decreaseSpeed()" id="speedDown" class="bottomButton">Speed-</button>
+        <button onclick="topFunction()" id="goToTopButton" class="bottomButton">Top</button>
+    </div>
+
+    <h1>Deutsch A1-1</h1>
+    <div id="toc_container">
+        <p class="toc_title">Contents</p>
+        <ul class="toc_list">
+        </ul>
+    </div>
+
+    <div id="dialogueContainer">
+        <h2 id="dialogueSection">Dialogue</h2>
+        <table>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>
+                    <div style="color: blue;">Hello! Good morning! Good afternoon! Good evening!</div>
+                    <div style="color: red;">What is your name?</div>
+                    <div style="color: blue;">My name is Amets Cheung.</div>
+                    <div style="color: red;">Nice to meet you!</div>
+                    <div style="color: blue;">Nice to meet you, too!</div>
+                    <div style="color: red;">And where are you from?</div>
+                    <div style="color: blue;">I am from Hong Kong. And you?</div>
+                    <div style="color: red;">I am from Hong Kong, too!</div>
+                    <div style="color: blue;">I see!</div>
+                    <div style="color: red;">And where do you live?</div>
+                    <div style="color: blue;">I live in Shatin. And you?</div>
+                    <div style="color: red;">I live in Tai Kok Tsui.</div>
+                    <div style="color: blue;">How old are you?</div>
+                    <div style="color: red;">I am 27 Jahre alt.</div>
+                    <div style="color: blue;">And what is your phone number?</div>
+                    <div style="color: red;">My phone number is 98-76-54-32.</div>
+                    <div style="color: blue;">And where do you work?</div>
+                    <div style="color: red;">I work at PCCW in Wan Chai.</div>
+                    <div style="color: blue;">And who is this?</div>
+                    <div style="color: red;">This is Mr. Li. He comes from...<br>This is Miss Chan. She comes from...</div>
+                    <div style="color: blue;">All is clear! Good bye!</div>
+                </td>
+                <td>
+                    <div class="german" style="color: blue;">Hallo! Guten Morgen! Guten Tag! Guten Abend!</div>
+                    <div class="german" style="color: red;">Wie ist Ihr Name? Wie heißen Sie?</div>
+                    <div class="german" style="color: blue;">Meine Name ist Amets Cheung. Ich heiße Amets Cheung.</div>
+                    <div class="german" style="color: red;">Freut mich!</div>
+                    <div class="german" style="color: blue;">Freut mich auch!</div>
+                    <div class="german" style="color: red;">Und woher kommen Sie?</div>
+                    <div class="german" style="color: blue;">Ich komme aus Hong Kong. Und Sie?</div>
+                    <div class="german" style="color: red;">Ich komme auch aus Hong Kong!</div>
+                    <div class="german" style="color: blue;">Ach, so!</div>
+                    <div class="german" style="color: red;">Und wo wohnen Sie?</div>
+                    <div class="german" style="color: blue;">Ich wohne in Shatin. Und Sie?</div>
+                    <div class="german" style="color: red;">Ich wohne in Tai Kok Tsui.</div>
+                    <div class="german" style="color: blue;">Wie alt bist du?</div>
+                    <div class="german" style="color: red;">Ich bin 27 Jahre alt.</div>
+                    <div class="german" style="color: blue;">Wie ist deine Telefonnummer?</div>
+                    <div class="german" style="color: red;">Meine Telefonnummer ist 98-76-54-32.</div>
+                    <div class="german" style="color: blue;">Wo arbeitest du?</div>
+                    <div class="german" style="color: red;">Ich arbeite bei PCCW in Wanchai.</div>
+                    <div class="german" style="color: blue;">Und wer ist das?</div>
+                    <div class="german" style="color: red;">Das ist Herr Li. Er kommt aus...</div>
+                    <div class="german" style="color: red;">Das ist Frau Chan. Sie kommt aus...</div>
+                    <div class="german" style="color: blue;">Alles klar! Auf Wiedersehen! Tschüß!</div>
+                </td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>
+                    <div style="color: blue;">How is it going for you?</div>
+                    <div style="color: red;">Thank you, very good. And you?</div>
+                    <div style="color: red;">Thank you, I'm fine. And you?</div>
+                    <div style="color: red;">Not so good.</div>
+                    <div style="color: blue;">Why then?</div>
+                    <div style="color: red;">I am very ill.</div>
+                    <div style="color: red;">I am very tired.</div>
+                    <div style="color: red;">I have too much work.</div>
+                </td>
+                <td>
+                    <div class="german" style="color: blue;">Wie geht es Ihnen?</div>
+                    <div class="german" style="color: red;">Danke, sehr gut! Und Ihnen?</div>
+                    <div class="german" style="color: red;">Danke, es geht! Und Ihnen?</div>
+                    <div class="german" style="color: red;">Nicht so gut!</div>
+                    <div class="german" style="color: blue;">Warum denn?</div>
+                    <div class="german" style="color: red;">Ich bin (total) krank.</div>
+                    <div class="german" style="color: red;">Ich bin (total) müde.</div>
+                    <div class="german" style="color: red;">Ich habe zu viel Arbeit.</div>
+                </td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>
+                    <div>Excuse me, is this seat taken?</div>
+                    <div>I beg your pardon?</div>
+                    <div>I do not understand that. </div>
+                    <div>Can you spell that please?</div>
+                    <div>Can you repeat that please?</div>
+                </td>
+                <td>
+                    <div class="german">Entschuldigung, ist hier noch frei?</div>
+                    <div class="german">Wie bitte?</div>
+                    <div class="german">Das verstehe ich nicht.</div>
+                    <div class="german">Kannst du das bitte buchstabieren?</div>
+                    <div class="german">Kannst du das bitte wiederholen?</div>
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+
+    <div id="vocabContainer">
+        <h2 id="vocabsSection">Vocabs</h2>
+
+        <h3 id="vocabsSection_drinks">Drinks</h3>
+        <table>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>
+                    <div>What do you want to drink?</div>
+                    <div>Ice coffee. And you, what do you drink?</div>
+                    <div>A beer. How much is a beer?</div>
+                    <div>A beer costs 2,70 euro.</div>
+                </td>
+                <td>
+                    <div class="german" style="color: blue;">Was möchtest du trinken?</div>
+                    <div class="german" style="color: red;">Eiskaffee. Und du, was trinkst du?</div>
+                    <div class="german" style="color: blue;">Ein Bier. Was kostet ein Bier?</div>
+                    <div class="german" style="color: red;">Ein Bier kostet 2,70 Euro.</div>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <table id="drinksTable">
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Water</td>
+                <td class="german">das Wasser</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Sparkling water</td>
+                <td class="german">das Sprudelwasser</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Tea</td>
+                <td class="german">der Tee</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Coffee</td>
+                <td class="german">der Kaffee</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Milk</td>
+                <td class="german">die Milch</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Fruit juice</td>
+                <td class="german">der Fruchtsaft</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Orange juice</td>
+                <td class="german">der Orangensaft</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Apple juice</td>
+                <td class="german">der Apfelsaft</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Coke</td>
+                <td class="german">die Cola</td>
+            </tr>
+        </table>
+        <br>
+
+        <h3 id="vocabsSection_objects">Objects</h3>
+        <table>
+            <tr style="color: red;">
+                <th class="german">Wie heißt das auf Deutsch?</th>
+                <th class="german">Was ist das?</th>
+            </tr>
+            <tr>
+                <td class="german" style="color: blue;">der Stuhl</td>
+                <td class="german"><span style="color: orange;">Nein.</span> Das ist <span style="color: orange;">k</span>ein Stuhl.</td>
+            </tr>
+            <tr>
+                <td class="german" style="color: blue;">die Kaffeemaschine</td>
+                <td class="german"><span style="color: orange;">Nein.</span> Das ist <span style="color: orange;">k</span>eine Kaffeemaschine.</td>
+            </tr>
+            <tr>
+                <td class="german" style="color: blue;">das Handy</td>
+                <td class="german"><span style="color: orange;">Nein.</span> Das ist <span style="color: orange;">k</span>ein Handy.</td>
+            </tr>
+            <tr>
+                <td class="german" style="color: blue;">die Stühle</td>
+                <td class="german"><span style="color: orange;">Nein.</span> Das ist <span style="color: orange;">k</span>ein Stühle.<br><span
+                        style="color: orange;">Das sind keine Stühle.</span></td>
+            </tr>
+        </table>
+        <br>
+        
+        <table>
+            <tr style="color: blue;">
+                <th class="german">Ist das eine Kamera?</th>
+                <th class="german">Sind das Radios?</th>
+            </tr>
+            <tr>
+                <td class="german">
+                    <div>Nein, das ist keine Kamera.</div>
+                    <div>Das ist eine Lampe.</div>
+                </td>
+                <td class="german">
+                    <div>Nein, das sind keine Radios.</div>
+                    <div>Das sine Lampen.</div>
+                </td>
+            </tr>
+        </table>
+        <br><br>
+
+
+        <table id="objectTable">
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the fountain pen</td>
+                <td class="german">der Füller</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the fountain pens</td>
+                <td class="german">die Füller</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the CD-player</td>
+                <td class="german">der CD player</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the CD players</td>
+                <td class="german">die CD player</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the computer</td>
+                <td class="german">der Computer</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the computers</td>
+                <td class="german">die Computer</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The Videorecorder</td>
+                <td class="german">der Videorekorder</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The Videorecorders</td>
+                <td class="german">die Videorekorder</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the Mixer</td>
+                <td class="german">der Mixer</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the mixers</td>
+                <td class="german">die Mixer</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="german"></td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the board</td>
+                <td class="german">die Tafel</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the boards</td>
+                <td class="german">die Tafeln</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the lamp</td>
+                <td class="german">die Lampe</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the lamps</td>
+                <td class="german">die Lampen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the bag</td>
+                <td class="german">die Tasche</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the bags</td>
+                <td class="german">die Taschen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the rule</td>
+                <td class="german">die Regel</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the rules</td>
+                <td class="german">die Regeln</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the banana</td>
+                <td class="german">die Banana</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the bananas</td>
+                <td class="german">die Bananan</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="german"></td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the learning poster</td>
+                <td class="german">das Lernplakat</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the learning posters</td>
+                <td class="german">die Lernplakat</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the table</td>
+                <td class="german">der Tisch</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the tables</td>
+                <td class="german">die Tische</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the chair</td>
+                <td class="german">der Stuhl</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the chairs</td>
+                <td class="german">die Stühle</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the sponge</td>
+                <td class="german">der Schwamm</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the sponges</td>
+                <td class="german">die Schwämm</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the notebook</td>
+                <td class="german">das Heft</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the notebooks</td>
+                <td class="german">die Hefte</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="german"></td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the eraser</td>
+                <td class="german">der Radiergummi</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the rubbers</td>
+                <td class="german">die Radiergummis</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>ballpen</td>
+                <td class="german">der Kuli</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the pens</td>
+                <td class="german">die Kulis</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The cell phone</td>
+                <td class="german">das Handy</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the cellphones</td>
+                <td class="german">die Handys</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the camera</td>
+                <td class="german">die Kamera</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the cameras</td>
+                <td class="german">die Kameras</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the cafe</td>
+                <td class="german">das Cafe</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The cafes</td>
+                <td class="german">die Cafes</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the car</td>
+                <td class="german">das Auto</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the cars</td>
+                <td class="german">die Autos</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the eagle owl</td>
+                <td class="german">der Uhu</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the eagle owls</td>
+                <td class="german">die Uhus</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td class="german"></td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the book</td>
+                <td class="german">das Buch</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the books</td>
+                <td class="german">die Bücher</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the teacher</td>
+                <td class="german">der Lehrer</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>the teacher (f)</td>
+                <td class="german">die Lehrerin</td>
+            </tr>
+        </table>
+
+        <h3 id="vocabsSection_hobbies">Hobbys</h3>
+        <div class="german" style="color: blue;">Was sind deine Hobbys?</div>
+        <div class="german">Meine Hobbys sind Lesen und Musik hören.</div>
+        <table id="hobbyTable">
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Read</td>
+                <td class="german">Lesen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Listen to music</td>
+                <td class="german">Musik hören</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Go to the Cinema</td>
+                <td class="german">Ins Kino gehen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Watch DVD</td>
+                <td class="german">DVDs sehen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Taking photos</td>
+                <td class="german">Fotografieren</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Paint</td>
+                <td class="german">Malen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Draw</td>
+                <td class="german">Zeichnen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Learn German</td>
+                <td class="german">Deutsch lernen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Learn languages</td>
+                <td class="german">Sprachen lernen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Play piano</td>
+                <td class="german">Klavier spielen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Play football</td>
+                <td class="german">Fußball spielen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Play tennis</td>
+                <td class="german">Tennis spielen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Play badminton</td>
+                <td class="german">Federball spielen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Play golf</td>
+                <td class="german">Golf spielen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Jog</td>
+                <td class="german">Joggen</td>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Swim</td>
+                <td class="german">Schwimmen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Diving</td>
+                <td class="german">Tauchen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Hike</td>
+                <td class="german">Wandern</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Travel</td>
+                <td class="german">Reisen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Grill</td>
+                <td class="german">Grillen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Cook</td>
+                <td class="german">Kochen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Play chess</td>
+                <td class="german">Schach spielen</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>Play Mahjong</td>
+                <td class="german">Mahjong spielen</td>
+            </tr>
+        </table>
+
+        <h3 id="vocabsSection_languages" class="german">Sprachen</h3>
+        <div class="german" style="color: blue;">Sprechen Sie Englisch?</div>
+        <div class="german" style="color: blue;">Sprichst du Englisch?</div>
+        <div class="german">Nein, ich spreche kein Englisch.</div>
+        <div class="german">Ja, ich spreche <span style="color: red">ein bißchen</span> Englisch.</div>
+        <div><span class="german" style="color: red">ein bißchen</span> / <span class="german" style="color: red">etwas</span> / <span class="german" style="color: red">ziemlich</span> / <span class="german" style="color: red">gut</span> / <span class="german" style="color: red">sehr gut</span> / <span class="german" style="color: red">super</span> / <span class="german" style="color: red">perferkt</span></div>
+        <br>
+        <div class="german" style="color: blue;">Welche Sprachen sprichst du (noch)?</div>
+        <div class="german">Ich spreche perfekt Kantonesisch, ..., ... und ...</div>
+        <div class="german" style="color: blue;">Kantonesisch, ist das schwer?</div>
+        <div class="german">Ja, Kantonesisch ist ziemlich schwer aber interessant.</div>
+        <div class="german">Nein, Kantonesisch ist <span style="color: red">nicht so / gah nicht</span> schwer.</div>
+        <br>
+        <div class="german" style="color: blue;">Wo lerust du Kantonesisch?</div>
+        <div class="german">Kantonesisch lerne ich <span style="color: red">zu Hause. Das ist meine Muttersprache</span>.</div>
+        <div><span class="german" style="color: red">in der Schule</span> / <span class="german" style="color: red">in der Uni / Universität</span> / <span class="german" style="color: red">bei DSLC in Mongkok</span> / <span class="german" style="color: red">in Korea</span></div>
+
+        <ul>
+            <li class="german">Deutsch</li>
+            <li class="german">Engl<span style="color: blue;">isch</span></li>
+            <li class="german">Span<span style="color: blue;">isch</span></li>
+            <li class="german">Italien<span style="color: blue;">isch</span></li>
+            <li class="german">Japan<span style="color: blue;">isch</span></li>
+            <li class="german">Korean<span style="color: blue;">isch</span></li>
+            <li class="german">Arab<span style="color: blue;">isch</span></li>
+            <li class="german">Kantone<span style="color: orange;">sisch</span></li>
+            <li class="german">Chine<span style="color: orange;">sisch</span></li>
+            <li class="german">Franzö<span style="color: orange;">sisch</span></li>
+            <li class="german">Portugie<span style="color: orange;">sisch</span></li>
+            <li class="german">Russisch</li>
+        </ul>
+
+        <h3 id="vocabsSection_travel" class="german">Reisen</h3>
+        <div class="german" style="color: blue;">Warst du schon mal in England?</div>
+        <div class="german" style="color: red;">Nein, in England war ich noch nie.</div>
+        <div class="german" style="color: blue;">Und in Deutschland?</div>
+        <div class="german" style="color: red;">Ja, in Deutschland war ich schon mal.</div>
+        <div class="german" style="color: blue;">Und wo in Deutschland?</div>
+        <div class="german" style="color: red;">In München.</div>
+        <div class="german" style="color: blue;">Aha. Und wo liegt München?</div>
+        <div class="german" style="color: red;">München liegt im Süden von Deutschland.</div>
+        <ul>
+            <li class="german">Deutschland</li>
+            <li class="german">England</li>
+            <li class="german">Spanien</li>
+            <li class="german">Italien</li>
+            <li class="german">Japan</li>
+            <li class="german">Korea</li>
+            <li class="german">China</li>
+            <li class="german">Frankreich</li>
+            <li class="german">Portugal</li>
+        </ul>
+        
+    </div>
+    <script>
+        $(".hideGermanToggle").click(function () {
+            $(this).parents('table').find('.german').toggle();
+        })
+    </script>
+
+    <div id="readContainer">
+        <h2 id="readSection">Appendix</h2>
+        <h3 id="readSection_alphabet" class="german">Alphabet</h2>
+        <table>
+            <tr>
+                <td class="german">A</td>
+                <td class="german">B</td>
+                <td class="german">C</td>
+                <td class="german">D</td>
+                <td class="german">E</td>
+                <td class="german">F</td>
+                <td class="german">G</td>
+            </tr>
+            <tr>
+                <td class="german">H</td>
+                <td class="german">I</td>
+                <td class="german">J</td>
+                <td class="german">K</td>
+                <td class="german">L</td>
+                <td class="german">M</td>
+                <td class="german">N</td>
+            </tr>
+            <tr>
+                <td class="german">O</td>
+                <td class="german">P</td>
+                <td class="german">Q</td>
+                <td class="german">R</td>
+                <td class="german">S</td>
+                <td class="german">T</td>
+                <td class="german">U</td>
+            </tr>
+            <tr>
+                <td class="german">V</td>
+                <td class="german">W</td>
+                <td class="german">X</td>
+                <td class="german">Y</td>
+                <td class="german">Z</td>
+                <td class="german"></td>
+                <td class="german"></td>
+            </tr>
+            <tr>
+                <td class="german">ä</td>
+                <td class="german">ö</td>
+                <td class="german">ü</td>
+                <td class="german">ß</td>
+                <td class="german"></td>
+                <td class="german"></td>
+                <td class="german"></td>
+            </tr>
+        </table>
+        <br>
+        <h3 id="readSection_number" class="german">Nummer</h2>
+        <div class="number">
+            <h3 id="randomNumber" class="german"></h3>
+            <button onclick="setRandomNumber()">Generate random number</button>
+        </div>
+        <br>
+        <h3 id="readSection_read" class="german">Read</h2>
+        <form>
+            <textarea id="inputText"></textarea>
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+        <button onclick="document.getElementById('inputText').value += 'ä'">ä</button>
+        <button onclick="document.getElementById('inputText').value += 'ö'">ö</button>
+        <button onclick="document.getElementById('inputText').value += 'ü'">ü</button>
+        <button onclick="document.getElementById('inputText').value += 'ß'">ß</button>
+        <script>
+            var synth = window.speechSynthesis;
+    
+            var inputForm = document.querySelector('form');
+            var inputTxt = document.getElementById('inputText');
+    
+            var voices = synth.getVoices();
+    
+    
+            inputForm.onsubmit = function (event) {
+                event.preventDefault();
+    
+                var utterThis = new SpeechSynthesisUtterance(inputTxt.value);
+                utterThis.rate = window.document.utterRate;
+                synth.speak(utterThis);
+                inputTxt.blur();
+            }
+        </script>
+    </div>
+
+    <script>
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+
+        function setRandomNumber() {
+            $('#randomNumber').html(getRandomInt(101));
+        }
+
+        function setToc(){
+            $('h2').each((i, e) => {
+                const li = $('.toc_list').append(`<li><a href="#${e.id}">${e.innerText}</a></li>`);
+                let ul = null;
+                $(e).parent().find('h3').each((i2, e2) => {
+                    if (!ul) {
+                        ul = $('<ul></ul>');
+                        li.append(ul)
+                    }
+                    ul.append(`<li><a href="#${e2.id}">${e2.innerText}</a></li>`);
+                })
+            })
+        }
+
+        function setGermanEventHandler(isReadWholeSentence) {
+            if (isReadWholeSentence) {
+                $(".german").off("click").click(function () {
+                    const sentence = this.innerText ? this.innerText : this.value;
+                    if (sentence) {
+                        const utterThis = new SpeechSynthesisUtterance(sentence);
+                        utterThis.rate = window.document.utterRate;
+                        window.speechSynthesis.speak(utterThis);
+                    }
+                })
+            } else {
+                $(".german").off("click").click(function(e) {
+                    var s = window.getSelection();
+                    s.modify('extend', 'backward', 'word');
+                    var b = s.toString();
+
+                    s.modify('extend', 'forward', 'word');
+                    var a = s.toString();
+                    s.modify('move', 'forward', 'character');
+
+                    const word = b + a;
+                    if (word) {
+                        const utterThis = new SpeechSynthesisUtterance(word);
+                        utterThis.rate = window.document.utterRate;
+                        window.speechSynthesis.speak(utterThis);
+                    }
+                });
+            }
+        }
+
+        function toggleReadWholeSentence() {
+            window.document.readWholeSentence = !window.document.readWholeSentence;
+            $('#readWholeSentenceToggle').html(window.document.readWholeSentence ? "Read sentence" : "Read word");
+            setGermanEventHandler(window.document.readWholeSentence);
+        }
+        
+        var goToTopButton = document.getElementById("goToTopButton");
+
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                goToTopButton.style.display = "inline-block";
+            } else {
+                goToTopButton.style.display = "none";
+            }
+        }
+
+        function decreaseSpeed() {
+            if (window.document.utterRate > 0.1) {
+                if (window.document.utterRate < 1) {
+                    window.document.utterRate -= 0.1;
+                } else {
+                    window.document.utterRate -= 1;
+                }
+            }
+        }
+
+        function increaseSpeed() {
+            if (window.document.utterRate < 10) {
+                if (window.document.utterRate > 1) {
+                    window.document.utterRate += 1;
+                } else {
+                    window.document.utterRate += 0.1;
+                }
+            }
+        }
+
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            window.document.readWholeSentence = true;
+            window.document.utterRate = 0.5; // 0.1 to 10
+            setToc();
+            setGermanEventHandler(true);
+            setRandomNumber();
+        })
+    </script>
+</body>
+
+</html>

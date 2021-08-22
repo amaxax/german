@@ -1,0 +1,327 @@
+<html lang="de">
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .bottomButtons {
+            position: fixed;
+            bottom: 20px;
+            z-index: 99;
+            right: 30px;
+        }
+
+        .bottomButtons button {
+            font-size: 12px;
+            border: none;
+            outline: none;
+            background-color: gray;
+            color: white;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 4px;
+        }
+
+        .bottomButton:hover {
+            background-color: #555;
+        }
+
+        #goToTopButton {
+            display: none;
+        }
+    </style>
+    <style>
+        #toc_container {
+            background: #f9f9f9 none repeat scroll 0 0;
+            border: 1px solid #aaa;
+            display: table;
+            font-size: 95%;
+            margin-bottom: 1em;
+            padding: 20px;
+            width: auto;
+        }
+
+        .toc_title {
+            font-weight: 700;
+            text-align: center;
+        }
+
+        #toc_container li,
+        #toc_container ul,
+        #toc_container ul li {
+            list-style: outside none none !important;
+        }
+
+        .german {
+            cursor: pointer;
+        }
+
+        textarea {
+            width: 425px;
+            height: 60px;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            padding: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bottomButtons">
+        <button onclick="toggleReadWholeSentence()" id="readWholeSentenceToggle" class="bottomButton">Read sentence</button>
+        <button onclick="increaseSpeed()" id="speedUp" class="bottomButton">Speed+</button>
+        <button onclick="decreaseSpeed()" id="speedDown" class="bottomButton">Speed-</button>
+        <button onclick="topFunction()" id="goToTopButton" class="bottomButton">Top</button>
+    </div>
+
+    <h1>Deutsch A1-2</h1>
+    <div id="toc_container">
+        <p class="toc_title">Contents</p>
+        <ul class="toc_list">
+        </ul>
+    </div>
+
+    <div id="vocabContainer">
+        <h2 id="vocabsSection">Vocabs</h2>
+
+        <h3 id="vocabsSection_drinks">die Möbel</h3>
+        
+        <table id="furnitureTable">
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The cable</td>
+                <td><span class="german">der Tisch</span>, -e</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The chair</td>
+                <td><span class="german">der Stuhl</span>, -"e</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The cupboard</td>
+                <td><span class="german">der Schrank</span>, -"e</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The armchair</td>
+                <td><span class="german">der Sessel</span>, -</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The mirror</td>
+                <td><span class="german">der Spiegel</span>, -</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The stove</td>
+                <td><span class="german">der Herd</span>, -e</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The lamp</td>
+                <td><span class="german">die Lampe</span>, -n</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The commode (A piece of furniture with drawers and shelves)</td>
+                <td><span class="german">die Kommode</span>, -n</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The sink</td>
+                <td><span class="german">die Spüle</span>, -n</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The toilet</td>
+                <td><span class="german">die Toilette</span>, -n</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The bathtub</td>
+                <td><span class="german">die Badewanne</span>, -n</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The shower</td>
+                <td><span class="german">die Dusche</span>, -n</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The sofa</td>
+                <td><span class="german">das Sofa</span>, -s</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The shelf</td>
+                <td><span class="german">das Regal</span>, -e</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The bed</td>
+                <td><span class="german">das Bett</span>, -en</td>
+            </tr>
+            <tr>
+                <td><button class="hideGermanToggle">Toggle German</button></td>
+                <td>The sink (washroom)</td>
+                <td><span class="german">das Waschbecken</span>, -</td>
+            </tr>
+        </table>
+        <br>
+        
+    </div>
+    <script>
+        $(".hideGermanToggle").click(function () {
+            $(this).parents('table').find('.german').toggle();
+        })
+    </script>
+
+    <div id="readContainer">
+        <h2 id="readSection">Appendix</h2>
+        <h3 id="readSection_read" class="german">Read</h2>
+        <form>
+            <textarea id="inputText"></textarea>
+            <br>
+            <input type="submit" value="Submit">
+        </form>
+        <button onclick="document.getElementById('inputText').value += 'ä'">ä</button>
+        <button onclick="document.getElementById('inputText').value += 'ö'">ö</button>
+        <button onclick="document.getElementById('inputText').value += 'ü'">ü</button>
+        <button onclick="document.getElementById('inputText').value += 'ß'">ß</button>
+        <script>
+            var synth = window.speechSynthesis;
+    
+            var inputForm = document.querySelector('form');
+            var inputTxt = document.getElementById('inputText');
+    
+            var voices = synth.getVoices();
+    
+    
+            inputForm.onsubmit = function (event) {
+                event.preventDefault();
+    
+                var utterThis = new SpeechSynthesisUtterance(inputTxt.value);
+                utterThis.rate = window.document.utterRate;
+                synth.speak(utterThis);
+                inputTxt.blur();
+            }
+        </script>
+    </div>
+
+    <script>
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+
+        function setRandomNumber() {
+            $('#randomNumber').html(getRandomInt(101));
+        }
+
+        function setToc(){
+            $('h2').each((i, e) => {
+                const li = $('.toc_list').append(`<li><a href="#${e.id}">${e.innerText}</a></li>`);
+                let ul = null;
+                $(e).parent().find('h3').each((i2, e2) => {
+                    if (!ul) {
+                        ul = $('<ul></ul>');
+                        li.append(ul)
+                    }
+                    ul.append(`<li><a href="#${e2.id}">${e2.innerText}</a></li>`);
+                })
+            })
+        }
+
+        function setGermanEventHandler(isReadWholeSentence) {
+            if (isReadWholeSentence) {
+                $(".german").off("click").click(function () {
+                    const sentence = this.innerText ? this.innerText : this.value;
+                    if (sentence) {
+                        const utterThis = new SpeechSynthesisUtterance(sentence);
+                        utterThis.rate = window.document.utterRate;
+                        window.speechSynthesis.speak(utterThis);
+                    }
+                })
+            } else {
+                $(".german").off("click").click(function(e) {
+                    var s = window.getSelection();
+                    s.modify('extend', 'backward', 'word');
+                    var b = s.toString();
+
+                    s.modify('extend', 'forward', 'word');
+                    var a = s.toString();
+                    s.modify('move', 'forward', 'character');
+
+                    const word = b + a;
+                    if (word) {
+                        const utterThis = new SpeechSynthesisUtterance(word);
+                        utterThis.rate = window.document.utterRate;
+                        window.speechSynthesis.speak(utterThis);
+                    }
+                });
+            }
+        }
+
+        function toggleReadWholeSentence() {
+            window.document.readWholeSentence = !window.document.readWholeSentence;
+            $('#readWholeSentenceToggle').html(window.document.readWholeSentence ? "Read sentence" : "Read word");
+            setGermanEventHandler(window.document.readWholeSentence);
+        }
+        
+        var goToTopButton = document.getElementById("goToTopButton");
+
+        window.onscroll = function () { scrollFunction() };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                goToTopButton.style.display = "inline-block";
+            } else {
+                goToTopButton.style.display = "none";
+            }
+        }
+
+        function decreaseSpeed() {
+            if (window.document.utterRate > 0.1) {
+                if (window.document.utterRate < 1) {
+                    window.document.utterRate -= 0.1;
+                } else {
+                    window.document.utterRate -= 1;
+                }
+            }
+        }
+
+        function increaseSpeed() {
+            if (window.document.utterRate < 10) {
+                if (window.document.utterRate > 1) {
+                    window.document.utterRate += 1;
+                } else {
+                    window.document.utterRate += 0.1;
+                }
+            }
+        }
+
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            window.document.readWholeSentence = true;
+            window.document.utterRate = 0.5; // 0.1 to 10
+            setToc();
+            setGermanEventHandler(true);
+            setRandomNumber();
+        })
+    </script>
+</body>
+
+</html>
